@@ -1,0 +1,2 @@
+# IF4020_Tugas2_07
+Tugas 2 IF4020 Kriptografi oleh Kelompok 07 dengan NIM 13523047, 13523053, 13523120, 13523121
