@@ -1,4 +1,5 @@
-from cipher import encrypt_block, decrypt_block
+import cbc
+import ecb
 
 # PKCS #7 padding
 def padding(plaintext):
@@ -14,15 +15,12 @@ def unpad(plaintext):
         raise ValueError("Invalid PKCS#7 padding")
     return plaintext[:-pad]
 
-def encrypt(P, K):
+def encrypt(P, K, mode="ecb"):
     p = padding(P)
-    C = b''
-    for i in range(0, len(p), 16):
-        C += encrypt_block(p[i:i+16], K)
-    return C
+    if mode == "cbc":
+        return cbc.encrypt(p, K)
+    return ecb.encrypt(p, K)
 
-def decrypt(C, K):
-    p = b''
-    for i in range(0, len(C), 16):
-        p += decrypt_block(C[i:i+16], K)
+def decrypt(C, K, mode="ecb"):
+    p = cbc.decrypt(C, K) if mode == "cbc" else ecb.decrypt(C, K)
     return unpad(p)
