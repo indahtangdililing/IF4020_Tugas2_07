@@ -12,7 +12,7 @@ def xor(a, b):
 #   X_{j+1} = LSB_{b-s}(X_j) || MSB_s(O_j)
 # OFB mirip CFB, bedanya ntar ditambahin ulang itu s-bit hasil enkripsi bukan cipherteks
 # enkripsi = dekripsi (XOR with keystream yang sama).
-# Kalau s = 128 (s = b) maka X_{j+1} = E_K(X_j)
+# kalau s = 128 (s = b) maka X_{j+1} = E_K(X_j)
 # Output = IV || C, IV acak 16 byte kalau tidak diberikan
 def encrypt(p, K, iv=None, s=8):
     if iv is None:

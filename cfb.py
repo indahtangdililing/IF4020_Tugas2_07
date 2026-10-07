@@ -9,7 +9,7 @@ def xor(a, b):
 # CFB (Cipher Feedback)
 #   C_j     = P_j xor MSB_s(E_K(X_j))
 #   X_{j+1} = LSB_{b-s}(X_j) || C_j,   X_1 = IV
-# Output = IV || C, IV acak 16 byte kalau tidak diberikan
+# utput = IV || C, IV acak 16 byte kalau tidak diberikan
 def encrypt(p, K, iv=None, s=8):
     n = _unit_bytes(s)
     if iv is None:
