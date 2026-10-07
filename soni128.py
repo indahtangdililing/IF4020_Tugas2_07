@@ -28,7 +28,7 @@ def encrypt(P, K, mode="ecb"):
 
 def decrypt(C, K, mode="ecb"):
     if mode in STREAM:
-        p = STREAM[mode].decrypt(p, K)
+        p = STREAM[mode].decrypt(C, K)
     else:
         p = ecb.decrypt(C, K)
     return unpad(p)

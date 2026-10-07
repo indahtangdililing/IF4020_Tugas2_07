@@ -1,0 +1,6 @@
+Mode   AE plaintext   AE kunci   Entropi ciphertext
+ECB         50.66%     50.45%             4.9458
+CBC         50.38%     49.27%             7.9890
+CFB         25.62%     50.19%             7.9890
+OFB          0.78%     49.85%             7.9902
+CTR          0.78%     49.68%             7.9895
