@@ -1,5 +1,10 @@
 import cbc
 import ecb
+import cfb
+import ofb
+import ctr
+
+STREAM = {"cbc": cbc, "cfb": cfb, "ofb": ofb, "ctr": ctr}
 
 # PKCS #7 padding
 def padding(plaintext):
@@ -17,10 +22,13 @@ def unpad(plaintext):
 
 def encrypt(P, K, mode="ecb"):
     p = padding(P)
-    if mode == "cbc":
-        return cbc.encrypt(p, K)
+    if mode in STREAM:
+        return STREAM[mode].encrypt(p, K)
     return ecb.encrypt(p, K)
 
 def decrypt(C, K, mode="ecb"):
-    p = cbc.decrypt(C, K) if mode == "cbc" else ecb.decrypt(C, K)
+    if mode in STREAM:
+        p = STREAM[mode].decrypt(p, K)
+    else:
+        p = ecb.decrypt(C, K)
     return unpad(p)
