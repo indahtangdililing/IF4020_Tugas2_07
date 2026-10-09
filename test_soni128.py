@@ -39,7 +39,7 @@ if __name__ == "__main__":
     rng = Random(128)
     messages = [rng.randbytes(length) for length in range(66)]
     messages += [rng.randbytes(rng.randrange(1025)) for _ in range(100)]
-    messages += [bytes(256), b"\xff" * 256, bytes(range(256)), "Halo, dunia! 🔐".encode()]
+    messages += [bytes(256), b"\xff" * 256, bytes(range(256)), "Hello, world! 🔐".encode()]
     for plaintext in messages:
         key = rng.randbytes(16)
         padded = padding(plaintext)
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         (decrypt, (encrypt_block(b"a" * 15 + b"\x00", bytes(16)), bytes(16)), ValueError),
     ]
     for length in (1, 15, 17, 31):
-        invalid_calls.append((decrypt, (bytes(length), bytes(16)), AssertionError))
+        invalid_calls.append((decrypt, (bytes(length), bytes(16)), ValueError))
     for length in (0, 1, 15, 17, 32):
         invalid_calls.append((encrypt, (b"hello", bytes(length)), AssertionError))
         invalid_calls.append((decrypt, (bytes(16), bytes(length)), AssertionError))
@@ -70,14 +70,15 @@ if __name__ == "__main__":
             raise AssertionError(f"{function.__name__} accepted invalid input: {args!r}")
 
     with TemporaryDirectory() as directory:
+        # directory = "."  buat liat langsung not di temp
         source = Path(directory) / "message.txt"
-        plaintext = "Halo, dunia! 🔐\n".encode("utf-8")
+        plaintext = "Hello, world! 🔐\n".encode("utf-8")
         source.write_bytes(plaintext)
-        with patch("builtins.input", side_effect=("encrypt", str(source), "0123456789abcdef")):
+        with patch("builtins.input", side_effect=("encrypt", "ecb", str(source), "0123456789abcdef")):
             main()
         encrypted = source.with_suffix(".encrypted.txt")
         assert bytes.fromhex(encrypted.read_text()) == encrypt(plaintext, b"0123456789abcdef")
-        with patch("builtins.input", side_effect=("decrypt", str(encrypted), "0123456789abcdef")):
+        with patch("builtins.input", side_effect=("decrypt", "ecb", str(encrypted), "0123456789abcdef")):
             main()
         assert encrypted.with_suffix(".decrypted.txt").read_bytes() == plaintext
         assert source.read_bytes() == plaintext

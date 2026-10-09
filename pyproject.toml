@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soni128"
+version = "1.0.0"
+description = "SONI-128 block cipher"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Kelompok 07 IF4020" }]
+
+[project.optional-dependencies]
+uji = ["pandas", "matplotlib"]
+
+[project.scripts]
+soni128 = "main:main"
+
+[tool.setuptools]
+py-modules = [
+    "soni128", "main",
+    "ecb", "cbc", "cfb", "ofb", "ctr",
+    "cipher", "key_schedule", "f", "mixing_layer", "rp",
+]
