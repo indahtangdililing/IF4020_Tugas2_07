@@ -49,12 +49,12 @@ Histogram frekuensi byte
 
 Garis merah putus-putus adalah distribusi seragam ideal (1/256).
 
-.. figure::../hasil_uji/ecb.png
+.. figure:: ../hasil_uji/ecb.png
    :alt: Histogram ECB
 
    ECB
 
-.. figure::../hasil_uji/cbc.png
+.. figure:: ../hasil_uji/cbc.png
    :alt: Histogram CBC
 
    CBC
