@@ -12,9 +12,11 @@ templates_path = []
 
 html_theme = "furo"
 html_title = "SONI-128 API Documentation"
-html_static_path = ["_static"]
+html_static_path = []
 html_theme_options = {
     "source_repository": "https://github.com/indahtangdililing/IF4020_Tugas2_07",  
+    "source_branch": "main",
+    "source_directory": "docs/",
 }
 
 autodoc_typehints = "description"
