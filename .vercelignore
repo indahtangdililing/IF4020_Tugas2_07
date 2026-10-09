@@ -1,0 +1,7 @@
+# Yang di-deploy ke Vercel hanya dokumentasi Sphinx (docs/ + hasil_uji/).
+# File program Python di root disembunyikan supaya Vercel tidak mendeteksinya
+# sebagai aplikasi Python yang butuh entrypoint.
+/*.py
+/pyproject.toml
+/requirements.txt
+/__pycache__
