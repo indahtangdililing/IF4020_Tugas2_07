@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from cipher import ROUNDS
+from key_schedule import key_schedule
 from soni128 import encrypt, decrypt
 
 
@@ -14,14 +16,15 @@ try:
     key = input("Key (16 UTF-8 bytes): ").encode("utf-8")
     if len(key) != 16:
         raise ValueError("Key must be exactly 16 bytes")
+    subkeys = key_schedule(key, ROUNDS)  # dijadwalkan sekali untuk semua blok
 
     if mode == "encrypt":
-        result = encrypt(source.read_bytes(), key, block_mode).hex().encode("ascii")
+        result = encrypt(source.read_bytes(), subkeys, block_mode).hex().encode("ascii")
     else:
         ciphertext = bytes.fromhex(source.read_text(encoding="ascii"))
         if not ciphertext or len(ciphertext) % 16:
             raise ValueError("Ciphertext must contain complete 16-byte blocks")
-        result = decrypt(ciphertext, key, block_mode)
+        result = decrypt(ciphertext, subkeys, block_mode)
 
     output = source.with_suffix(".encrypted.txt" if mode == "encrypt" else ".decrypted.txt")
     with output.open("xb") as file:

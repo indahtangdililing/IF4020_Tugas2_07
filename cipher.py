@@ -3,8 +3,7 @@ from key_schedule import key_schedule, is_ml
 from mixing_layer import ML, ML_inv
 from rp import RP, RP_inv
 
-ROUNDS = 18
-
+ROUNDS = 6
 
 def to_words(b):
     return [int.from_bytes(b[i:i + 4], "big") for i in range(0, 16, 4)]
@@ -14,9 +13,16 @@ def to_bytes(w):
     return b"".join(x.to_bytes(4, "big") for x in w)
 
 
+def subkeys(key, R):
+    if isinstance(key, tuple):
+        return key
+    return key_schedule(bytes(key), R)
+
+
 def encrypt_block(block, key, R=ROUNDS):
     assert len(block) == 16, "blok harus 16 byte"
-    wk, rk, mk = key_schedule(key, R)
+    wk, rk, mk = subkeys(key, R)
+    R = len(rk) // 2
     x = [a ^ b for a, b in zip(to_words(block), wk[:4])]
     j = 0
     for r in range(R):
@@ -31,7 +37,8 @@ def encrypt_block(block, key, R=ROUNDS):
 
 def decrypt_block(block, key, R=ROUNDS):
     assert len(block) == 16, "blok harus 16 byte"
-    wk, rk, mk = key_schedule(key, R)
+    wk, rk, mk = subkeys(key, R)
+    R = len(rk) // 2
     x = [a ^ b for a, b in zip(to_words(block), wk[4:])]
     j = len(mk)
     for r in reversed(range(R)):

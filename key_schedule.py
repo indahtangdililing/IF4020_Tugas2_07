@@ -1,4 +1,5 @@
 MASK = 0xFFFFFFFF
+ML_INTERVAL = 3
 
 
 def rotl(x, n):
@@ -10,7 +11,7 @@ def rotr(x, n):
 
 
 def is_ml(r, R):
-    return (r + 1) % 6 == 0 and r != R - 1
+    return (r + 1) % ML_INTERVAL == 0
 
 
 def key_stream(key):
