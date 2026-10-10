@@ -1,8 +1,8 @@
 Mode operasi (``ecb``, ``cbc``, ``cfb``, ``ofb``, ``ctr``)
 ==========================================================
 
-Setiap mode adalah modul terpisah dengan fungsi ``encrypt`` dan ``decrypt``. Modul-modul ini
-tidak melakukan padding. Karena padding dikerjakan oleh :py:func:`soni128.encrypt`.
+Setiap mode dirancang pada file terpisah dengan fungsi ``encrypt`` dan ``decrypt`` masing-masing. Tiap mode ini
+tidak melakukan padding, karena padding telah dilakukan pada :py:func:`soni128.encrypt`.
 Modul ini dapat digunakan langsung jika ingin menentukan IV, counter awal, atau lebar feedback ``s``.
 
 Notasi: ``E_K`` = enkripsi satu blok SONI128 dengan kunci ``K``, ``b`` = 128 (ukuran blok).
@@ -16,7 +16,7 @@ Setiap blok dienkripsi sendiri-sendiri: ``C_i = E_K(P_i)``.
 
 .. py:function:: encrypt(p: bytes, K: bytes) -> bytes
 
-   :param p: Plaintext yang sudah di-*padding* (kelipatan 16 byte).
+   :param p: Plaintext yang sudah dipadding (kelipatan 16 byte).
    :type p: bytes
    :param K: Kunci 16 byte.
    :type K: bytes
@@ -30,7 +30,7 @@ Setiap blok dienkripsi sendiri-sendiri: ``C_i = E_K(P_i)``.
    :type C: bytes
    :param K: Kunci 16 byte.
    :type K: bytes
-   :returns: Plaintext masih ber-*padding*, panjang sama dengan ``C``.
+   :returns: Plaintext masih berpadding, panjang sama dengan ``C``.
    :rtype: bytes
    :raises ValueError: jika ``C`` kosong atau panjangnya bukan kelipatan 16.
 
@@ -39,11 +39,11 @@ CBC
 
 .. py:module:: cbc
 
-``C_0 = IV``, ``C_i = E_K(P_i xor C_{i-1})``. Keluaran berformat ``IV || C``.
+``C_0 = IV``, ``C_i = E_K(P_i xor C_{i-1})``. Output berformat ``IV || C``.
 
 .. py:function:: encrypt(p: bytes, K: bytes, iv: bytes | None = None) -> bytes
 
-   :param p: Plaintext ber-padding (kelipatan 16 byte).
+   :param p: Plaintext berpadding (kelipatan 16 byte).
    :type p: bytes
    :param K: Kunci 16 byte.
    :type K: bytes
@@ -59,7 +59,7 @@ CBC
    :type C: bytes
    :param K: Kunci 16 byte.
    :type K: bytes
-   :returns: Plaintext masih ber-*padding*, panjang ``len(C) - 16``.
+   :returns: Plaintext masih berpadding, panjang ``len(C) - 16``.
    :rtype: bytes
    :raises ValueError: jika panjang ``C`` kurang dari 32 byte atau bukan kelipatan 16.
 
@@ -143,7 +143,7 @@ Enkripsi dan dekripsi memakai operasi yang sama.
    :type iv: bytes
    :param s: Lebar feedback dalam bit.
    :type s: int
-   :returns: ``data`` yang di-XOR dengan keystream, panjang sama dengan ``data``.
+   :returns: ``data`` yang dilakukan XOR dengan keystream, panjang sama dengan ``data``.
    :rtype: bytes
    :raises ValueError: jika ``s`` tidak valid.
 
@@ -153,7 +153,7 @@ CTR (Counter)
 .. py:module:: ctr
 
 ``C_j = P_j xor E_K(T_j)``, ``T_{j+1} = (T_j + 1) mod 2^128``. Counter 128-bit dibaca big-endian.
-Blok terakhir yang pendek di-XOR dengan sebagian keystream.
+Blok terakhir yang pendek di XOR dengan sebagian keystream.
 
 .. py:function:: encrypt(p: bytes, K: bytes, counter: bytes | None = None) -> bytes
 
@@ -190,10 +190,10 @@ Blok terakhir yang pendek di-XOR dengan sebagian keystream.
    :type K: bytes
    :param counter: Counter awal 16 byte.
    :type counter: bytes
-   :returns: ``data`` yang di-XOR dengan keystream.
+   :returns: ``data`` yang di XOR dengan keystream.
    :rtype: bytes
 
-Ringkasan format keluaran
+Ringkasan format output
 -------------------------
 
 .. list-table::
@@ -225,5 +225,5 @@ Ringkasan format keluaran
      - ``T_1 || C``
      - ``counter``
 
-Catatan: :py:func:`soni128.encrypt` tetap menambahkan padding untuk CFB/OFB/CTR sehingga ciphertext
+Notes: :py:func:`soni128.encrypt` tetap menambahkan padding untuk CFB/OFB/CTR sehingga ciphertext
 dari API high level selalu 16 + kelipatan 16 byte.

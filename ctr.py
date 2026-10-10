@@ -8,7 +8,7 @@ def xor(a, b):
 
 # Counter Mode (CTR): C_j = P_j xor E_K(T_j), T_{j+1} = T_j + 1 (mod 2^128)
 # counter dihitung satu blok (16 byte), nilai awal T_1 acak kalau tidak diberikan.
-# tidak perlu padding blok terakhir yang pendek di-XOR dengan MSB_u(E_K(T_N)).
+# tidak perlu padding blok terakhir yang pendek di XOR dengan MSB_u(E_K(T_N)).
 # counter awal tidak boleh dipakai ulang dengan kunci yang sama.
 # Output = T_1 || C
 def encrypt(p, K, counter=None):

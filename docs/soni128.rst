@@ -3,7 +3,7 @@ Modul ``soni128`` (API high level)
 
 .. py:module:: soni128
 
-Antarmuka utama yang sebaiknya dipakai. Modul ini menangani padding PKCS #7 dan memilih
+Interface utama yang sebaiknya dipakai. Modul ini menangani padding PKCS #7 dan memilih
 mode operasi. Untuk mode selain ECB, IV/counter acak 16 byte dibuat otomatis dan
 ditempelkan di depan ciphertext.
 
@@ -11,11 +11,11 @@ ditempelkan di depan ciphertext.
    :type: dict[str, module]
 
    Pemetaan nama mode ke modulnya: ``{"cbc": cbc, "cfb": cfb, "ofb": ofb, "ctr": ctr}``.
-   ECB tidak ada di sini; ECB dipakai sebagai mode bawaan.
+   ECB tidak ada karena ECB dijadikan mode default.
 
 .. py:function:: encrypt(P: bytes, K: bytes, mode: str = "ecb") -> bytes
 
-   Mengenkripsi ``P`` dengan kunci ``K``. ``P`` di-padding PKCS #7 terlebih dahulu
+   Mengenkripsi ``P`` dengan kunci ``K``. ``P`` dengan dipadding PKCS #7 terlebih dahulu
    untuk semua mode.
 
    :param P: Plaintext, panjang bebas (boleh kosong).
@@ -58,7 +58,7 @@ ditempelkan di depan ciphertext.
    Menambahkan padding PKCS #7. Jika panjang sudah kelipatan 16, ditambahkan satu blok
    penuh (16 byte bernilai ``0x10``).
 
-   :param plaintext: Data yang akan di-padding.
+   :param plaintext: Data yang akan dipadding.
    :type plaintext: bytes
    :returns: Data dengan panjang kelipatan 16; ``n`` byte terakhir bernilai ``n`` (1 ≤ n ≤ 16).
    :rtype: bytes

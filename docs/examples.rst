@@ -1,7 +1,7 @@
 Contoh penggunaan
 =================
 
-Semua keluaran di bawah ini dihasilkan dengan menjalankan kode.
+Semua output di bawah ini dihasilkan dengan menjalankan kode.
 Untuk mode selain ECB, IV/counter dibuat acak, sehingga ciphertext akan berbeda pada setiap
 pemanggilan, tapi panjangnya yang tetap.
 
@@ -31,7 +31,7 @@ pemanggilan, tapi panjangnya yang tetap.
 ECB menghasilkan 16 byte (satu blok). Mode lain menghasilkan 32 byte: 16 byte IV/counter
 ditambah satu blok data dengan padding.
 
-ECB bersifat deterministik, jadi keluarannya tetap:
+ECB bersifat deterministik, jadi outputnya tetap:
 
 .. code-block:: python
 
@@ -54,7 +54,7 @@ Empat byte ``04`` ditambahkan karena 12 byte kurang 4 dari kelipatan 16.
 3. Menentukan IV, counter, atau lebar umpan balik ``s``
 -------------------------------------------------------
 
-Pakai modul mode langsung, untuk plaintext mode CBC harus di-padding sendiri.
+Pakai modul mode langsung, untuk plaintext mode CBC harus dipadding sendiri.
 
 .. code-block:: python
 
@@ -75,7 +75,7 @@ Pakai modul mode langsung, untuk plaintext mode CBC harus di-padding sendiri.
    print(c.hex())
    # 000102030405060708090a0b0c0d0e0f94c471
 
-Dua keluaran tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti ciphertext.
+Dua output tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti ciphertext.
 
 4. Enkripsi satu blok
 ---------------------
@@ -91,7 +91,7 @@ Dua keluaran tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti 
    >>> decrypt_block(c, key) == blok
    True
 
-5. Penjadwalan kunci
+5. Penjadwalan kunci / Key scheduling 
 --------------------
 
 .. code-block:: python
@@ -103,7 +103,7 @@ Dua keluaran tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti 
    >>> [r for r in range(18) if is_ml(r, 18)]
    [5, 11]
 
-6. Penanganan error
+6. Penanganan error / Error handling
 -------------------
 
 .. code-block:: python
@@ -119,7 +119,7 @@ Dua keluaran tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti 
    >>> cfb.encrypt(b"a", b"0123456789abcdef", None, 12)
    ValueError: s must be a multiple of 8 between 8 and 128
 
-7. Memakai CLI
+7. CLI
 --------------
 
 .. code-block:: console
@@ -142,4 +142,4 @@ Dua keluaran tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti 
    $ cat pesan.encrypted.decrypted.txt
    Halo, dunia!
 
-Pada keluaran heksadesimal, 32 karakter pertama adalah IV acak, sehingga output akan berbeda.
+Pada output heksadesimal, 32 karakter pertama adalah IV acak, sehingga output akan berbeda.

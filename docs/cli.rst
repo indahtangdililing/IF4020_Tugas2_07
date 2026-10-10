@@ -31,7 +31,7 @@ Masukan (dibaca berurutan lewat ``input()``)
      - str
      - Kunci, hasil encode UTF-8 harus tepat 16 byte (karakter non-ASCII memakai lebih dari 1 byte).
 
-Keluaran
+Output
 --------
 
 .. list-table::
@@ -49,7 +49,7 @@ Keluaran
      - Plaintext asli (byte mentah)
 
 Ekstensi ``.txt`` pada input diganti. Contoh: mendekripsi ``pesan.encrypted.txt``
-menghasilkan ``pesan.encrypted.decrypted.txt``. Output dibuat untuk menolak menimpa txt yang sudah ada.
+menghasilkan ``pesan.encrypted.decrypted.txt``. Output telah kami rancang untuk tidak menimpa txt yang sudah ada (menghasilkan yang baru).
 
 Kode keluar dan pesan error
 ---------------------------

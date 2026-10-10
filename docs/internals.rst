@@ -1,8 +1,8 @@
 Komponen internal
 =================
 
-Modul-modul berikut dipanggil oleh :doc:`cipher`. Biasanya tidak perlu dipanggil langsung,
-tetapi dibutuhkan untuk menguji atau mempelajari rancangan cipher.
+Modul-modul yang kami jelaskan berikut dipanggil oleh :doc:`cipher`. Biasanya tidak perlu dipanggil langsung,
+tetapi dibutuhkan untuk menguji rancangan cipher.
 
 Penjadwalan kunci (``key_schedule``)
 ------------------------------------
@@ -11,7 +11,7 @@ Penjadwalan kunci (``key_schedule``)
 
 .. py:function:: key_schedule(key: bytes, R: int) -> tuple[list[int], list[int], list[int]]
 
-   Menurunkan seluruh *subkey* dari kunci 16 byte. Delapan keluaran pertama dari
+   Menurunkan seluruh *subkey* dari kunci 16 byte. Delapan output pertama dari
    :py:func:`key_stream` dibuang, lalu sisanya dipakai berurutan.
 
    :param key: Kunci master, tepat 16 byte.
@@ -117,7 +117,7 @@ Mixing layer (``mixing_layer``)
 
 .. py:function:: ML(x0: int, x1: int, x2: int, x3: int, mk: Sequence[int], mk2: Sequence[int] | None = None) -> tuple[int, int, int, int]
 
-   Meng-XOR keempat word dengan ``mk``, memecahnya menjadi delapan setengah word 16-bit
+   Melakukan XOR keempat word dengan ``mk``, memecahnya menjadi delapan setengah word 16-bit
    ``b1..b8``, menerapkan rangkaian operasi tambah/XOR/rotasi 16-bit, lalu menyusun ulang
    menjadi empat word 32-bit.
 

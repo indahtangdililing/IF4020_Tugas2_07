@@ -1,4 +1,4 @@
-Catatan tambahan
+Notes
 ================
 
 Pengujian keamanan
@@ -74,8 +74,8 @@ Garis merah putus-putus adalah distribusi seragam ideal (1/256).
 
    CTR
 
-Pustaka dan kakas yang dipakai untuk dokumentasi ini
+Library dan kakas yang dipakai untuk dokumentasi ini
 ----------------------------------------------------
 * `Sphinx <https://www.sphinx-doc.org>`_ dengan domain Python (``py:function``, ``py:module``) untuk menulis referensi API.
 * `Furo <https://pradyunsg.me/furo/>`_.
-* Hosting statis di `Vercel <https://vercel.com>`_.
+* Hosting di `Vercel <https://vercel.com>`_.

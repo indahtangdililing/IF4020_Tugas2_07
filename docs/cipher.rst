@@ -3,7 +3,7 @@ Modul ``cipher`` (satu blok)
 
 .. py:module:: cipher
 
-Enkripsi dan dekripsi **satu blok 16 byte**. Modul ini adalah inti SONI128, seluruh mode operasi
+Enkripsi dan dekripsi satu blok yaitu ukuran 16 byte. Modul ini adalah inti SONI128, seluruh mode operasi
 memanggil fungsi di sini.
 
 .. py:data:: ROUNDS

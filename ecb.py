@@ -2,7 +2,7 @@ from cipher import encrypt_block, decrypt_block
 
 
 # ECB (Electronic CodeBook): tiap blok dienkripsi sendiri-sendiri
-# Input sudah di-padding (kelipatan 16 byte)
+# Input sudah padding (kelipatan 16 byte)
 def encrypt(p, K):
     C = b''
     for i in range(0, len(p), 16):
