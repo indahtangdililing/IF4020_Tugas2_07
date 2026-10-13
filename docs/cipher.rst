@@ -8,11 +8,11 @@ memanggil fungsi di sini.
 
 .. py:data:: ROUNDS
    :type: int
-   :value: 18
+   :value: 6
 
    Jumlah ronde bawaan.
 
-.. py:function:: encrypt_block(block: bytes, key: bytes, R: int = 18) -> bytes
+.. py:function:: encrypt_block(block: bytes, key: bytes, R: int = 6) -> bytes
 
    Mengenkripsi satu blok.
 
@@ -26,7 +26,7 @@ memanggil fungsi di sini.
    :rtype: bytes
    :raises AssertionError: jika ``len(block) != 16``, ``len(key) != 16``, atau ``R < 4``.
 
-.. py:function:: decrypt_block(block: bytes, key: bytes, R: int = 18) -> bytes
+.. py:function:: decrypt_block(block: bytes, key: bytes, R: int = 6) -> bytes
 
    Kebalikan dari :py:func:`encrypt_block`.
 
@@ -68,7 +68,7 @@ Alur enkripsi satu blok
        x1 ^= F(x0, rk[2r])                            # cabang Feistel 1
        x3 ^= F(x2, rk[2r+1])                          # cabang Feistel 2
        (x0,x1,x2,x3) = RP(x0,x1,x2,x3)                # permutasi: (x3,x0,x1,x2)
-       if (r+1) % 6 == 0 and r != R-1:                # setelah ronde 6 dan 12 (R=18)
+       if (r+1) % 3 == 0:                             # setelah ronde 3 dan 6 (R=6)
            (x0,x1,x2,x3) = ML(x0,x1,x2,x3, mk[4 word berikutnya])
    ciphertext = bytes(x xor wk[4..7])                 # output whitening
 

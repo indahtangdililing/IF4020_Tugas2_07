@@ -22,7 +22,7 @@ Penjadwalan kunci (``key_schedule``)
 
       * ``wk``: 8 word *whitening* (4 awal untuk input, 4 akhir untuk output).
       * ``rk``: ``2 * R`` *round key*, dua per ronde.
-      * ``mk``: 4 word untuk setiap *mixing layer* (8 *word* bila ``R = 18``).
+      * ``mk``: 4 word untuk setiap *mixing layer* (8 *word* bila ``R = 6``).
    :rtype: tuple[list[int], list[int], list[int]]
    :raises AssertionError: jika ``len(key) != 16`` atau ``R < 4``.
 
@@ -45,7 +45,7 @@ Penjadwalan kunci (``key_schedule``)
    :type r: int
    :param R: Jumlah ronde total.
    :type R: int
-   :returns: ``True`` jika ``(r + 1) % 6 == 0`` dan ``r != R - 1``.
+   :returns: ``True`` jika ``(r + 1) % 3 == 0`` (konstanta ``ML_INTERVAL = 3``).
    :rtype: bool
 
 .. py:function:: rotl(x: int, n: int) -> int

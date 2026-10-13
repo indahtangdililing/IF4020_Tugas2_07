@@ -36,7 +36,7 @@ ECB bersifat deterministik, jadi outputnya tetap:
 .. code-block:: python
 
    >>> encrypt(b"Halo, dunia!", b"0123456789abcdef", "ecb").hex()
-   '5e8277f5ac9bc847f7cde2795b4d498d'
+   '210afcd9e7648657d7a2ba955a48f5d5'
 
 2. Padding PKCS #7
 ------------------
@@ -66,14 +66,14 @@ Pakai modul mode langsung, untuk plaintext mode CBC harus dipadding sendiri.
 
    c = cbc.encrypt(padding(b"Halo, dunia!"), key, iv)
    print(c.hex())
-   # 000102030405060708090a0b0c0d0e0fff85b7d7126dd28ac2048b97aec8c6fa
+   # 000102030405060708090a0b0c0d0e0fbc4a485f1ae508f7d193b58ac41f0b29
 
    c = cfb.encrypt(b"abc", key, iv, s=128)
    assert cfb.decrypt(c, key, s=128) == b"abc"
 
    c = ctr.encrypt(b"abc", key, iv)
    print(c.hex())
-   # 000102030405060708090a0b0c0d0e0f94c471
+   # 000102030405060708090a0b0c0d0e0f2b142d
 
 Dua output tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti ciphertext.
 
@@ -87,7 +87,7 @@ Dua output tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti ci
    >>> blok = bytes(range(16))
    >>> c = encrypt_block(blok, key)
    >>> c.hex()
-   'f5a612a19c3f4dc88806f2c69e3f8812'
+   '4a764e2707a0dc49833cafefd30b57c2'
    >>> decrypt_block(c, key) == blok
    True
 
@@ -97,11 +97,11 @@ Dua output tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti ci
 .. code-block:: python
 
    >>> from key_schedule import key_schedule, is_ml
-   >>> wk, rk, mk = key_schedule(b"0123456789abcdef", 18)
+   >>> wk, rk, mk = key_schedule(b"0123456789abcdef", 6)
    >>> len(wk), len(rk), len(mk)
-   (8, 36, 8)
-   >>> [r for r in range(18) if is_ml(r, 18)]
-   [5, 11]
+   (8, 12, 8)
+   >>> [r for r in range(6) if is_ml(r, 6)]
+   [2, 5]
 
 6. Penanganan error / Error handling
 -------------------
@@ -132,7 +132,7 @@ Dua output tetap di atas diawali IV/counter yang diberikan (16 byte), diikuti ci
    Key (16 UTF-8 bytes): 0123456789abcdef
    Saved to pesan.encrypted.txt
    $ cat pesan.encrypted.txt
-   f3add69b4e2c9bec57b74a1febba3789626d4c18ee770d69cf078ec7bfa69ce3
+   4687768e2eaa2fc98ff8a2447e03d610a6f72a5826afdf194ae0d0cfc6aacf56
    $ python3 main.py
    Mode (encrypt/decrypt): decrypt
    Block mode (ecb/cbc/cfb/ofb/ctr): cbc

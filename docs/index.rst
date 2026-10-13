@@ -23,10 +23,10 @@ dan tidak membutuhkan library pihak ketiga.
    * - Ukuran kunci
      - 128 bit (16 byte)
    * - Jumlah ronde
-     - 18 (konstanta ``cipher.ROUNDS``)
+     - 6 (konstanta ``cipher.ROUNDS``)
    * - Struktur
      - Jaringan Feistel dengan 4 cabang dengan fungsi ``F`` (S-box 4-bit + difusi rotasi),
-       permutasi antar-cabang ``RP``, dan *mixing layer* ``ML`` setiap 6 ronde
+       permutasi antar-cabang ``RP``, dan *mixing layer* ``ML`` setiap 3 ronde (setelah ronde 3 dan 6)
    * - Padding
      - PKCS #7 (selalu menambahkan 1 sampai 16 byte)
    * - Mode operasi
